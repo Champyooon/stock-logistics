@@ -14,7 +14,7 @@ class Debtinvoiceitem extends Model
         'debtfacture_id',
         'product_id',
         'product_price',
-        'product_quantity',
+        'product_quantity', 
         'sub_total'
 
     ];

@@ -20,7 +20,7 @@ class VehiculeResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-cpu-chip';
     protected static ?string $navigationLabel = 'Véhicule';
     protected static ?string $modelLabel = 'Véhicule';
-    protected static ?string $navigationGroup = 'Stock & Logistique';
+    protected static ?string $navigationGroup = 'Achat & Logistique';
     protected static ?int $navigationSort = 4;
     protected static array $statusees =[
         'Disponible'=>'Disponible',

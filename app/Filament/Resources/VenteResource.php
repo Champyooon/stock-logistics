@@ -21,6 +21,7 @@ class VenteResource extends Resource
     protected static ?string $navigationLabel = 'Vente';
     protected static ?string $modelLabel = 'Vente';
     protected static ?string $navigationGroup = 'Comptabilité & Trésorerie';
+    protected static ?int $navigationSort = 6;
 
     public static function form(Form $form): Form
     {

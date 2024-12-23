@@ -18,7 +18,10 @@ class MaintenanceResource extends Resource
 {
     protected static ?string $model = Maintenance::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-exclamation-triangle';
+    protected static ?string $navigationLabel = 'Maintenance';
+    protected static ?string $modelLabel = 'Maintenance';
+    protected static ?string $navigationGroup = 'Achat & Logistique';
     protected static array $statusees =[
         'En cours'=>'En cours',
         'Terminée'=>'Terminée'

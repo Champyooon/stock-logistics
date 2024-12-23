@@ -16,6 +16,7 @@ class Achat extends Model
         'description',
         'price',
         'quantity',
+        'statut',
         'date_added'
     ];
 

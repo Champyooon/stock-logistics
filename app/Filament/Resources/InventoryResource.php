@@ -20,7 +20,7 @@ class InventoryResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-archive-box-arrow-down';
     protected static ?string $navigationLabel = 'Inventaire';
     protected static ?string $modelLabel = 'Inventaire';
-    protected static ?string $navigationGroup = 'Stock & Logistique';
+    protected static ?string $navigationGroup = 'Achat & Logistique';
     protected static ?int $navigationSort = 2;
     protected static array $statusees =[
         'Disponible'=>'Disponible',

@@ -20,7 +20,7 @@ class MaterialResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-wrench-screwdriver';
     protected static ?string $navigationLabel = 'Matériel';
     protected static ?string $modelLabel = 'Matériel';
-    protected static ?string $navigationGroup = 'Stock & Logistique';
+    protected static ?string $navigationGroup = 'Achat & Logistique';
     protected static ?int $navigationSort = 3;
 
     protected static array $statuseees =[

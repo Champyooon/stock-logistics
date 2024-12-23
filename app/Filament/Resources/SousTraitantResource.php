@@ -17,7 +17,11 @@ class SousTraitantResource extends Resource
 {
     protected static ?string $model = SousTraitant::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-presentation-chart-bar';
+    protected static ?string $navigationLabel = 'Sous-traitant';
+    protected static ?string $modelLabel = 'Sous-traitant';
+    protected static ?string $navigationGroup = 'Comptabilité & Trésorerie';
+    protected static ?int $navigationSort = 5;
 
     public static function form(Form $form): Form
     {

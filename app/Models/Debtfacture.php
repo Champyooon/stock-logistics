@@ -20,18 +20,24 @@ class Debtfacture extends Model
     ];
 
 
-// Utilisation de booted() pour recalculer le total avant la sauvegarde
+public function getTotalPriceAttribute(): float
+{
+    $productsTotal = $this->debtinvoiceItems->sum(fn ($item) => $item->sub_total ?? 0);
+    $servicesTotal = $this->serviceItems->sum(fn ($item) => $item->sub_total ?? 0);
+
+    return $productsTotal + $servicesTotal;
+}
+
+// Dans le modèle Invoice
 protected static function booted()
 {
     static::saving(function ($invoice) {
-        // Charge les éléments associés à la facture (debtinvoiceItems)
-        $invoice->load('debtinvoiceItems');
+        // Calculez le total des produits et des prestations
+        $productsTotal = $invoice->debtinvoiceItems->sum(fn ($item) => $item->sub_total ?? 0);
+        $servicesTotal = $invoice->serviceItems->sum(fn ($item) => $item->sub_total ?? 0);
 
-        // Calcul du total des sous-totaux
-        $total = $invoice->debtinvoiceItems->sum('sub_total');
-
-        // Mise à jour du total dans la facture
-        $invoice->total_price = $total;
+        // Enregistrez le montant total dans la colonne `total_price`
+        $invoice->total_price = $productsTotal + $servicesTotal;
     });
 }
    public function client()
@@ -39,19 +45,19 @@ protected static function booted()
        return $this->belongsTo(Client::class);
    }
 
-   public function invoiceItems()
-{
-    return $this->hasMany(Debtinvoiceitem::class, 'debtfacture_id');
-}
-
 
    public function invoice()
    {
        return $this->belongsTo(Invoice::class);
    }
-
    public function debtinvoiceItems()
-{
-    return $this->hasMany(Debtinvoiceitem::class);
-}
+   {
+       return $this->hasMany(Debtinvoiceitem::class);
+   }
+
+   public function serviceItems()
+   {
+       return $this->hasMany(ServiceItem::class);
+   }
+
 }

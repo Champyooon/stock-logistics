@@ -17,9 +17,10 @@ class InvoiceResource extends Resource
     protected static ?string $model = Invoice::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $navigationLabel = 'Facture';
-    protected static ?string $modelLabel = 'Facture';
+    protected static ?string $navigationLabel = 'Facture de vente';
+    protected static ?string $modelLabel = 'Facture de vente';
     protected static ?string $navigationGroup = 'Comptabilité & Trésorerie';
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
@@ -184,7 +185,6 @@ class InvoiceResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()->label('Voir'),
-                Tables\Actions\EditAction::make()->label('Modifier'),
                 Tables\Actions\DeleteAction::make()->label('Supprimer'),
             ])
             ->bulkActions([

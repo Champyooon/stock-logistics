@@ -17,7 +17,11 @@ class PrestationResource extends Resource
 {
     protected static ?string $model = Prestation::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-building-storefront';
+    protected static ?string $navigationLabel = 'Prestation';
+    protected static ?string $modelLabel = 'Prestation';
+    protected static ?string $navigationGroup = 'Comptabilité & Trésorerie';
+    protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form
     {

@@ -24,8 +24,13 @@ class ServiceItem extends Model
         return $this->belongsTo(Invoice::class);
     }
 
-        public function prestation()
+    public function prestation()
         {
             return $this->belongsTo(Prestation::class);
+        }
+
+     public function debtfacture()
+        {
+            return $this->belongsTo(Debtfacture::class);
         }
 }

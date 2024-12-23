@@ -18,8 +18,10 @@ class AchatResource extends Resource
     protected static ?string $model = Achat::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-shopping-cart';
-    protected static ?string $navigationGroup = 'Stock & Logistique';
-    
+    protected static ?string $navigationGroup = 'Achat & Logistique';
+    protected static ?string $navigationLabel = 'Achat';
+    protected static ?string $modelLabel = 'Achat';
+
 
     public static function form(Form $form): Form
     {
@@ -48,6 +50,14 @@ class AchatResource extends Resource
                     ->required()
                     ->numeric()
                     ->default(0),
+                Forms\Components\Select::make('statut')
+                            ->label('Statut')
+                            ->options([
+                                'Valide' => 'Valide',
+                                'Défaillant' => 'Défaillant',
+                            ])
+                            ->required()
+                            ->default('Valide'),
                 Forms\Components\DatePicker::make('date_added')
                     ->label("Date d'ajout")
                     ->required(),
@@ -73,6 +83,9 @@ class AchatResource extends Resource
                     ->label('Quantité')
                     ->numeric()
                     ->sortable(),
+                    Tables\Columns\TextColumn::make('statut')
+                ->sortable()
+                ->label('Statut'),
                 Tables\Columns\TextColumn::make('date_added')
                     ->label("Date d'ajout")
                     ->date()
