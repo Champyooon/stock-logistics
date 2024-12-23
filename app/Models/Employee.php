@@ -19,11 +19,16 @@ class Employee extends Model
         'jobtitle',
         'address',
         'telephone',
-        'email'
+        'email',
+        'service_id'
        ];
 
        public function department():BelongsTo
    {
      return $this->belongsTo(Department::class);
+   }
+   public function service():BelongsTo
+   {
+     return $this->belongsTo(Service::class);
    }
 }

@@ -24,9 +24,9 @@ class LatestAdminEmployees extends BaseWidget
             Tables\Columns\TextColumn::make('department.name')
                 ->label('Nom du département'),
             Tables\Columns\TextColumn::make('first_name')
-                ->label('Prénom'),
-            Tables\Columns\TextColumn::make('last_name')
                 ->label('Nom'),
+            Tables\Columns\TextColumn::make('last_name')
+                ->label('Prénom(s)'),
         ];
     }
 }

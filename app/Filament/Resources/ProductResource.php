@@ -43,7 +43,7 @@ class ProductResource extends Resource
                     ->default(0)
                     ->prefix('F CFA'),
                 Forms\Components\TextInput::make('quantity')
-                    ->required()
+                    //->required()
                     ->numeric()
                     ->default(0),
                 Forms\Components\DatePicker::make('date_added')

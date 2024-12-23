@@ -35,22 +35,28 @@ class MaterialResource extends Resource
             ->schema([
                 Forms\Components\Select::make('category_id')
                     ->relationship(name:'category', titleAttribute:'name')
-                    //->searchable() Rechercher la categorie au lieu de la choisir
-                    //->preload()
+                    ->searchable() //Rechercher la categorie au lieu de la choisir
+                    ->preload()
+                    ->label('Catégorie')
                     ->required(),
                 Forms\Components\TextInput::make('item_name')
+                    ->label('Désignation')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('brand')
+                    ->label('Marque')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('quantity')
+                    ->label('Quantité')
                     ->required()
                     ->numeric()
                     ->default(0),
                 Forms\Components\DatePicker::make('date_added')
+                    ->label("Date d'ajout")
                     ->required(),
                 Forms\Components\Select::make('status')
+                ->label('Statut')
                 ->options(self::$statuseees)
                     ->required(),
                 ]);
@@ -61,19 +67,24 @@ class MaterialResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('category.name')
+                    ->label('Catégorie')
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('item_name')
+                    ->label('Désignation')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('brand')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('quantity')
+                    ->label('Quantité')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('date_added')
                     ->date()
+                    ->label("Date d'ajout")
                     ->sortable(),
-                Tables\Columns\TextColumn::make('status'),
+                Tables\Columns\TextColumn::make('status')
+                    ->label('Statut'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

@@ -4,18 +4,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Client extends Model
+class SousTraitant extends Model
 {
     use HasFactory;
 
     protected $fillable =[
-        'company_name',
-        'contact_name',
+        'name',
+        'contact_person',
+        'telephone',
         'email',
-        'phone',
-        'address',
-        'ncc',
+        'adress',
         'city',
-        'country'
+        'country',
+        'added_date'
        ];
 }

@@ -19,6 +19,7 @@ class AchatResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-shopping-cart';
     protected static ?string $navigationGroup = 'Stock & Logistique';
+    
 
     public static function form(Form $form): Form
     {
@@ -28,22 +29,27 @@ class AchatResource extends Resource
                     ->relationship(name:'supplier', titleAttribute:'name')
                     //->searchable() Rechercher la categorie au lieu de la choisir
                     //->preload()
+                    ->label('Fournisseurs')
                     ->required(),
                 Forms\Components\TextInput::make('item_name')
                     ->required()
+                    ->label('Désignation')
                     ->maxLength(255),
                 Forms\Components\Textarea::make('description')
                     ->columnSpanFull(),
                 Forms\Components\TextInput::make('price')
+                    ->label('Prix')
                     ->required()
                     ->numeric()
                     ->default(0)
                     ->prefix('XOF'),
                 Forms\Components\TextInput::make('quantity')
+                    ->label('Quantité')
                     ->required()
                     ->numeric()
                     ->default(0),
                 Forms\Components\DatePicker::make('date_added')
+                    ->label("Date d'ajout")
                     ->required(),
             ]);
     }
@@ -52,18 +58,23 @@ class AchatResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('supplier_id')
+                Tables\Columns\TextColumn::make('supplier.name')
+                    ->label('Fournisseurs')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('item_name')
+                    ->label('Désignation')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('price')
+                    ->label('Prix')
                     ->money('XOF')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('quantity')
+                    ->label('Quantité')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('date_added')
+                    ->label("Date d'ajout")
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
@@ -79,7 +90,8 @@ class AchatResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
+                Tables\Actions\EditAction::make()
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

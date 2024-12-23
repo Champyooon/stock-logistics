@@ -34,34 +34,47 @@ class EmployeeResource extends Resource
                     ->description("Veillez entrer les informations de l'employé")
                     ->schema([
                         Forms\Components\TextInput::make('first_name')
+                        ->label('Nom')
                         ->required()
                         ->maxLength(255),
                     Forms\Components\TextInput::make('last_name')
+                        ->label('Prénom(s)')
                         ->required()
                         ->maxLength(255),
                     Forms\Components\DatePicker::make('date_of_birth')
+                        ->label('Date de naissance')
                         ->native(false)
                         ->displayFormat('d/m/Y')
                         ->required(),
                     ])->columns(2),
 
-                Forms\Components\Section::make('Informations sur le travail')
+                    Forms\Components\Section::make('Informations sur le travail')
                     ->description("Veillez entrer les informations sur le travail de l'employé ")
                     ->schema([
-                        Forms\Components\Select::make('department_id')
+                    Forms\Components\Select::make('department_id')
                     ->relationship(name:'department', titleAttribute:'name')
-                    //->searchable() Rechercher la categorie au lieu de la choisir
-                    //->preload(),
+                    ->label('Departement')
+                    ->searchable() //Rechercher la categorie au lieu de la choisir
+                    ->preload()
                     ->required(),
+                    Forms\Components\Select::make('service_id')
+                    ->relationship(name:'service', titleAttribute:'name')
+                    ->label('Service')
+                    ->searchable() //Rechercher le service au lieu de la choisir
+                    ->preload(),
+
 
                     Forms\Components\DatePicker::make('date_of_hired')
+                        ->label("Date d'embauche")
                         ->native(false)
                         ->displayFormat('d/m/Y')
                         ->required(),
                     Forms\Components\TextInput::make('num_cnps')
+                        ->label('Numéro CNPS')
                         //->required()
                         ->maxLength(50),
                     Forms\Components\TextInput::make('jobtitle')
+                        ->label('Fonction')
                         ->required()
                         ->maxLength(100),
                     ])->columns(2),
@@ -70,9 +83,11 @@ class EmployeeResource extends Resource
                     ->description("Veillez saisir les informations sur le contact de l'employé")
                     ->schema([
                         Forms\Components\TextInput::make('address')
+                        ->label('Addresse')
                         ->required()
                         ->maxLength(255),
                     Forms\Components\TextInput::make('telephone')
+                    ->label('Téléphone')
                         ->tel()
                         ->required()
                         ->maxLength(255),
@@ -89,25 +104,36 @@ class EmployeeResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('department.name')
+                    ->label('Departement')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('service.name')
+                    ->label('Service')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('first_name')
+                    ->label('Nom')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('last_name')
+                    ->label('Prenom(s)')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('date_of_birth')
+                    ->label('Date de naissance')
                     ->date()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('date_of_hired')
+                    ->label("Date d'embauche")
                     ->date()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('num_cnps')
+                    ->label('Numéro CNPS')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('jobtitle')
+                ->label('Fonction')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('address')
+                ->label('Addresse')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('telephone')

@@ -3,20 +3,21 @@
 namespace App\Filament\Widgets;
 
 use App\Models\Employee;
+use App\Models\Invoice;
 use Filament\Widgets\ChartWidget;
 use Flowframe\Trend\Trend;
 use Flowframe\Trend\TrendValue;
 
 class EmployeeAdminChart extends ChartWidget
 {
-    protected static ?string $heading = 'Graphique des employés';
+    protected static ?string $heading = 'Graphique des ventes';
     protected static ?int $sort = 3;
 
     protected static string $color = 'warning';
 
     protected function getData(): array
     {
-        $data = Trend::model(Employee::class)
+        $data = Trend::model(Invoice::class)
         ->between(
             start: now()->startOfMonth(),
             end: now()->endOfMonth(),
@@ -27,7 +28,7 @@ class EmployeeAdminChart extends ChartWidget
     return [
         'datasets' => [
             [
-                'label' => 'Employés',
+                'label' => 'Factures',
                 'data' => $data->map(fn (TrendValue $value) => $value->aggregate),
             ],
         ],

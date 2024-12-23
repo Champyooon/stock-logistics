@@ -16,7 +16,6 @@ return new class extends Migration
             $table->foreignId('client_id')->constrained()->cascadeOnDelete();
             $table->integer('num_invoice')->unique();
             $table->date('date_invoice');
-            $table->string('designation');
             $table->integer('quantity')->default(0);
             $table->integer('prix_unit');
             $table->integer('prix_total');

@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ClientResource\Pages;
-use App\Filament\Resources\ClientResource\RelationManagers;
-use App\Models\Client;
+use App\Filament\Resources\SousTraitantResource\Pages;
+use App\Filament\Resources\SousTraitantResource\RelationManagers;
+use App\Models\SousTraitant;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,41 +13,36 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class ClientResource extends Resource
+class SousTraitantResource extends Resource
 {
-    protected static ?string $model = Client::class;
+    protected static ?string $model = SousTraitant::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-currency-dollar';
-    protected static ?string $navigationLabel = 'Client';
-    protected static ?string $modelLabel = 'Client';
-    protected static ?string $navigationGroup = 'Stock & Logistique';
-    protected static ?int $navigationSort = 6;
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('company_name')
+                Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('contact_name')
+                Forms\Components\TextInput::make('contact_person')
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('telephone')
+                    ->tel()
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('email')
                     ->email()
-                    ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('phone')
-                    ->tel()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('address')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('ncc')
-                    ->required(),
+                Forms\Components\Textarea::make('adress')
+                    ->columnSpanFull(),
                 Forms\Components\TextInput::make('city')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('country')
                     ->maxLength(255),
+                Forms\Components\DatePicker::make('added_date')
+                    ->required(),
             ]);
     }
 
@@ -55,20 +50,21 @@ class ClientResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('company_name')
+                Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('contact_name')
+                Tables\Columns\TextColumn::make('contact_person')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('telephone')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('phone')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('city')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('country')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('address'),
-                Tables\Columns\TextColumn::make('ncc'),
+                Tables\Columns\TextColumn::make('added_date')
+                    ->date()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -82,9 +78,7 @@ class ClientResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -103,10 +97,9 @@ class ClientResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListClients::route('/'),
-            'create' => Pages\CreateClient::route('/create'),
-            'view' => Pages\ViewClient::route('/{record}'),
-            'edit' => Pages\EditClient::route('/{record}/edit'),
+            'index' => Pages\ListSousTraitants::route('/'),
+            'create' => Pages\CreateSousTraitant::route('/create'),
+            'edit' => Pages\EditSousTraitant::route('/{record}/edit'),
         ];
     }
 }
