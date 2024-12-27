@@ -166,30 +166,46 @@ class InvoiceResource extends Resource
     }
 
     public static function table(Table $table): Table
-    {
-        return $table
-            ->columns([
-                Tables\Columns\TextColumn::make('client.company_name')->sortable(),
-                Tables\Columns\TextColumn::make('num_invoice')->searchable()
+{
+    return $table
+        ->columns([
+            Tables\Columns\TextColumn::make('client.company_name')
+                ->sortable()
+                ->label('Client'),
+            Tables\Columns\TextColumn::make('num_invoice')
+                ->searchable()
                 ->label('Numéro Facture'),
-                Tables\Columns\TextColumn::make('date_invoice')->date()->sortable()
+            Tables\Columns\TextColumn::make('date_invoice')
+                ->date()
+                ->sortable()
                 ->label("Date d'émission"),
-                Tables\Columns\TextColumn::make('total_price')->sortable()->formatStateUsing(fn ($state) => number_format($state, 2) . ' F CFA') // Formatte le montant
-                ->label('Montant Total')
-                ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')->dateTime()->sortable()
+            Tables\Columns\TextColumn::make('total_price')
+                ->sortable()
+                ->formatStateUsing(fn ($state) => number_format($state, 2) . ' F CFA')
+                ->label('Montant Total'),
+            Tables\Columns\TextColumn::make('created_at')
+                ->dateTime()
+                ->sortable()
                 ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')->dateTime()->sortable()
+            Tables\Columns\TextColumn::make('updated_at')
+                ->dateTime()
+                ->sortable()
                 ->toggleable(isToggledHiddenByDefault: true),
+        ])
+        ->filters([
+            Tables\Filters\SelectFilter::make('client')
+                ->relationship('client', 'company_name')
+                ->label('Client')
+                ->placeholder('Tous les clients'),
+        ])
+        ->actions([
+            Tables\Actions\ViewAction::make()->label('Voir'),
+            Tables\Actions\DeleteAction::make()->label('Supprimer'),
+        ])
+        ->bulkActions([
+            Tables\Actions\DeleteBulkAction::make(),
+        ]);
 
-            ])
-            ->actions([
-                Tables\Actions\ViewAction::make()->label('Voir'),
-                Tables\Actions\DeleteAction::make()->label('Supprimer'),
-            ])
-            ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
-            ]);
     }
 
 
